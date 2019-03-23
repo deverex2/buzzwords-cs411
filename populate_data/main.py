@@ -39,7 +39,7 @@ def get_year(date):
 
 def get_song_row_data(row):
 	return {
-		'song_id':row[0],
+		's_id':row[0],
 		'genre':row[1],
 	}
 
@@ -65,16 +65,18 @@ def populate_genre():
 	return True
 
 
-# with open('./../songs.csv') as f:
-#     reader = csv.reader(f)
-#     for row in reader:
-#     	data = get_song_row_data(row)
-#     	populate_song(data)
+with open('./../songs.csv') as f:
+    reader = csv.reader(f)
+    for row in reader:
+    	data = get_song_row_data(row)
+    	populate_song(data)
 
+print "***Populated songs***"
 
-# with open('./../song_genre.csv') as f:
-#     reader = csv.reader(f)
-#     for row in reader:
-#     	data = get_genre_row_data(row)
-#     	populate_genre(data)
+with open('./../song_genre.csv') as f:
+    reader = csv.reader(f)
+    for row in reader:
+    	data = get_genre_row_data(row)
+    	populate_genre(data)
 
+print "***Populated song genres***"
