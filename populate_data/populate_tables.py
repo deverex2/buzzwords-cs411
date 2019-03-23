@@ -17,7 +17,7 @@ Lyrics(s_id, words, l_freq)
 
 def get_populate_artists_query(a_id, name):
 	query = '''
-			INSERT INTO Artists
+			INSERT INTO Artists (a_id, name)
 			VALUES ({0}, {1})
 		'''.format(a_id, name)
 	return query

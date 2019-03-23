@@ -37,7 +37,7 @@ def get_song_row_data(row):
 		'artist_name':row[4],
 		'billboard_rank':row[5],
 		'a_id':row[6],
-		'song_name':row[7]
+		'title':row[7]
 	}
 
 def get_year(date):
