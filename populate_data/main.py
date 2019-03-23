@@ -17,7 +17,6 @@ Lyrics(s_id, words, l_freq)
 '''
 
 def execute_query(query):
-	print query
 	try:
 		db = mysql.connect(host="localhost",user="root",passwd="", db="Project")
 		cursor = db.cursor()
@@ -28,7 +27,6 @@ def execute_query(query):
 	
 
 def get_song_row_data(row):
-	print len(row)
 	return {
 		's_id':row[0],
 		'full_lyrics':row[1].lower().replace("'",""),
