@@ -14,6 +14,7 @@ Vocabulary(a_id, words, v_freq)
 Lyrics(s_id, words, l_freq)
 '''
 
+
 def get_populate_artists_query(a_id, name):
 	query = '''
 			INSERT INTO Artists
