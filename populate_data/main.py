@@ -34,10 +34,10 @@ def get_song_row_data(row):
 		'full_lyrics':row[1].lower().replace("'",""),
 		'url':row[2],
 		'release_date':row[3],
-		'artist_name':row[4],
+		'artist_name':row[4].replace("'",""),
 		'billboard_rank':row[5],
 		'a_id':row[6],
-		'title':row[7]
+		'title':row[7].replace("'","")
 	}
 
 def get_year(date):
