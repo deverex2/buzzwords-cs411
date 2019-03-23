@@ -54,7 +54,6 @@ genre_table ='''
 				CREATE TABLE Genre(
 					s_id int,
 					genre varchar(255),
-					PRIMARY KEY(s_id)
 				)
 			'''
 
