@@ -17,7 +17,7 @@ Lyrics(s_id, words, l_freq)
 '''
 
 def execute_query(query):
-	db = mysql.connect(host="localhost",user="wajid2",db="")
+	db = mysql.connect(host="localhost",user="root",passwd="", db="Project")
 	cursor = db.cursor()
 	cursor.execute(query)
 	db.close()
