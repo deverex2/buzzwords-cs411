@@ -21,6 +21,7 @@ def execute_query(query):
 		db = mysql.connect(host="localhost",user="root",passwd="", db="Project")
 		cursor = db.cursor()
 		cursor.execute(query)
+		cursor.execute('COMMIT')
 		db.close()
 	except Exception as e:
 		print "Error: ", e
