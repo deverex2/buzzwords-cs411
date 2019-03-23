@@ -17,10 +17,15 @@ Lyrics(s_id, words, l_freq)
 '''
 
 def execute_query(query):
-	db = mysql.connect(host="localhost",user="root",passwd="", db="Project")
-	cursor = db.cursor()
-	cursor.execute(query)
-	db.close()
+	print query
+	try:
+		db = mysql.connect(host="localhost",user="root",passwd="", db="Project")
+		cursor = db.cursor()
+		cursor.execute(query)
+		db.close()
+	except Exception as e:
+		print "Error: ", e
+	
 
 def get_song_row_data(row):
 	print len(row)
