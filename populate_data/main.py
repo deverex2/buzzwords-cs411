@@ -52,7 +52,7 @@ def populate_song(data):
 	print "populated artist"
 	execute_query(pt.get_populate_songs_query(data['s_id'], data['title'], get_year(data['release_date']), data['billboard_rank'], data['a_id'], data['full_lyrics']))
 	print "populated song"
-	for gram in xrange(1,5):
+	for gram in xrange(1,2):
 		populate_word_grams(gram, data)
 	return True
 
@@ -83,7 +83,7 @@ with open('./songs.csv') as f:
 
 print "***Populated songs***"
 
-with open('./song_genre.csv') as f:
+with open('./song_genres.csv') as f:
     reader = csv.reader(f)
     for row in reader:
     	data = get_genre_row_data(row)
