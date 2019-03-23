@@ -70,20 +70,20 @@ def populate_word_grams(gram, data):
 	return True
 	
 
-def populate_genre():
+def populate_genre(data):
 	execute_query(pt.get_populate_genre_query(data['s_id'], data['genre']))
 	print "populated genre"
 	return True
 
 
-with open('./songs.csv') as f:
-    reader = csv.reader(f)
-    for row in reader:
-    	data = get_song_row_data(row)
-    	populate_song(data)
-    	print "populate song: ", data['title']
+# with open('./songs.csv') as f:
+#     reader = csv.reader(f)
+#     for row in reader:
+#     	data = get_song_row_data(row)
+#     	populate_song(data)
+#     	print "populate song: ", data['title']
 
-print "***Populated songs***"
+# print "***Populated songs***"
 
 with open('./song_genres.csv') as f:
     reader = csv.reader(f)
