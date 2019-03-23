@@ -23,6 +23,7 @@ def execute_query(query):
 	db.close()
 
 def get_song_row_data(row):
+	print len(row)
 	return {
 		's_id':row[0],
 		'full_lyrics':row[1],
@@ -37,7 +38,7 @@ def get_song_row_data(row):
 def get_year(date):
 	return date.split('-')[0]
 
-def get_song_row_data(row):
+def get_genre_row_data(row):
 	return {
 		's_id':row[0],
 		'genre':row[1],
@@ -71,12 +72,12 @@ with open('./songs.csv') as f:
     	data = get_song_row_data(row)
     	populate_song(data)
 
-print "***Populated songs***"
+# print "***Populated songs***"
 
-with open('./song_genre.csv') as f:
-    reader = csv.reader(f)
-    for row in reader:
-    	data = get_genre_row_data(row)
-    	populate_genre(data)
+# with open('./song_genre.csv') as f:
+#     reader = csv.reader(f)
+#     for row in reader:
+#     	data = get_genre_row_data(row)
+#     	populate_genre(data)
 
-print "***Populated song genres***"
+# print "***Populated song genres***"

@@ -18,37 +18,37 @@ Lyrics(s_id, words, l_freq)
 def get_populate_artists_query(a_id, name):
 	query = '''
 			INSERT INTO Artists
-			VALUES ({a_id}, {name})
+			VALUES ({0}, {1})
 		'''.format(a_id, name)
 	return query
 
 def get_populate_songs_query(s_id, title, year, popularity_rating, a_id, full_lyrics):
 	query = '''
 			INSERT INTO Songs
-			VALUES ({s_id}, {title}, {year}, {popularity_rating}, {a_id}, {full_lyrics})
+			VALUES ({0}, {1}, {2}, {3}, {4}, {5})
 		'''.format(s_id, title, year, popularity_rating, a_id, full_lyrics)
 	return query
 
 def get_populate_genre_query(s_id, genre):
 	query = '''
 			INSERT INTO Genre
-			VALUES ({s_id}, {genre})
+			VALUES ({0}, {1})
 		'''.format(s_id, genre)
 	return query
 
 def get_populate_phrases_query(words):
 	populate_phrases = '''
 					begin trans
-					if exists (select * from Phrases where words = {words})
+					if exists (select * from Phrases where words = {0})
 					begin
 					   update Phrases 
 					   set count = count + 1
-					   where words = {words}
+					   where words = {0}
 					end
 					else
 					begin
 					   insert into Phrases
-					   values ({words}, 1)
+					   values ({0}, 1)
 					end
 					commit trans
 				'''.format(words)
@@ -57,16 +57,16 @@ def get_populate_phrases_query(words):
 def get_populate_vocabulary_query(a_id, words):
 	query = '''
 					begin trans
-					if exists (select * from Vocabulary where a_id = {a_id} AND words = {words})
+					if exists (select * from Vocabulary where a_id = {0} AND words = {1})
 					begin
 					   update Vocabulary 
 					   set v_freq = v_freq + 1
-					   where a_id = {a_id} AND words = {words}
+					   where a_id = {0} AND words = {1}
 					end
 					else
 					begin
 					   insert into Vocabulary
-					   values ({a_id}, {words}, 1)
+					   values ({0}, {1}, 1)
 					end
 					commit trans
 				'''.format(a_id, words)
@@ -75,16 +75,16 @@ def get_populate_vocabulary_query(a_id, words):
 def get_populate_lyrics_query(s_id, words):
 	query = '''
 					begin trans
-					if exists (select * from Lyrics where a_id = {s_id} AND words = {words})
+					if exists (select * from Lyrics where a_id = {0} AND words = {1})
 					begin
 					   update Lyrics 
 					   set l_freq = l_freq + 1
-					   where a_id = {s_id} AND words = {words}
+					   where a_id = {0} AND words = {1}
 					end
 					else
 					begin
 					   insert into Lyrics
-					   values ({s_id}, {words}, 1)
+					   values ({0}, {1}, 1)
 					end
 					commit trans
 				'''.format(s_id, words)
