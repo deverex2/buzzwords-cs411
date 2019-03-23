@@ -38,7 +38,7 @@ def get_populate_genre_query(s_id, genre):
 
 def get_populate_phrases_query(words):
 	populate_phrases = '''
-					begin trans
+					begin tran
 					if exists (select * from Phrases where words = {0})
 					begin
 					   update Phrases 
@@ -50,13 +50,13 @@ def get_populate_phrases_query(words):
 					   insert into Phrases
 					   values ({0}, 1)
 					end
-					commit trans
+					commit tran
 				'''.format(words)
 	return populate_phrases
 
 def get_populate_vocabulary_query(a_id, words):
 	query = '''
-					begin trans
+					begin tran
 					if exists (select * from Vocabulary where a_id = {0} AND words = {1})
 					begin
 					   update Vocabulary 
@@ -68,13 +68,13 @@ def get_populate_vocabulary_query(a_id, words):
 					   insert into Vocabulary
 					   values ({0}, {1}, 1)
 					end
-					commit trans
+					commit tran
 				'''.format(a_id, words)
 	return query
 
 def get_populate_lyrics_query(s_id, words):
 	query = '''
-					begin trans
+					begin tran
 					if exists (select * from Lyrics where a_id = {0} AND words = {1})
 					begin
 					   update Lyrics 
@@ -86,6 +86,6 @@ def get_populate_lyrics_query(s_id, words):
 					   insert into Lyrics
 					   values ({0}, {1}, 1)
 					end
-					commit trans
+					commit tran
 				'''.format(s_id, words)
 	return query

@@ -60,7 +60,7 @@ def populate_song(data):
 
 def populate_word_grams(gram, data):
 	lyrics = data['full_lyrics'].split()
-	for i in xrange(0,len(lyrics), gram):
+	for i in xrange(0,len(lyrics)):
 		words=' '.join(lyrics[i:i+gram]).lower()
 		execute_query(pt.get_populate_phrases_query(words))
 		print "populated phrase"
