@@ -28,11 +28,11 @@ def get_populate_songs_query(s_id, title, year, popularity_rating, a_id, full_ly
 		'''.format(s_id, title, year, popularity_rating, a_id, full_lyrics)
 	return query
 
-def get_populate_genre_query(s_id, words):
+def get_populate_genre_query(s_id, genre):
 	query = '''
 			INSERT INTO Genre
-			VALUES ({s_id}, {words})
-		'''.format(s_id, words)
+			VALUES ({s_id}, {genre})
+		'''.format(s_id, genre)
 	return query
 
 def get_populate_phrases_query(words):

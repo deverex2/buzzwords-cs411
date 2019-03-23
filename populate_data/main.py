@@ -1,5 +1,5 @@
 import csv
-import MySQLdb as mysql
+# import MySQLdb as mysql
 import populate_tables as pt
 
 
@@ -51,23 +51,30 @@ def populate_song(data):
 	return True
 
 def populate_word_grams(gram, data):
-	pass
+	lyrics = data['full_lyrics'].split()
+	for i in xrange(0,len(lyrics), gram):
+		words=' '.join(lyrics[i:i+gram]).lower()
+		execute_query(pt.get_populate_phrases_query(words))
+		execute_query(pt.get_populate_vocabulary_query(data['a_id'], words))
+		execute_query(pt.get_populate_lyrics_query(data['s_id'], words))
+	return True
+	
 
 def populate_genre():
 	execute_query(pt.get_populate_genre_query(data['s_id'], data['genre']))
 	return True
 
 
-with open('./../songs.csv') as f:
-    reader = csv.reader(f)
-    for row in reader:
-    	data = get_song_row_data(row)
-    	populate_song(data)
+# with open('./../songs.csv') as f:
+#     reader = csv.reader(f)
+#     for row in reader:
+#     	data = get_song_row_data(row)
+#     	populate_song(data)
 
 
-with open('./../song_genre.csv') as f:
-    reader = csv.reader(f)
-    for row in reader:
-    	data = get_genre_row_data(row)
-    	populate_genre(data)
+# with open('./../song_genre.csv') as f:
+#     reader = csv.reader(f)
+#     for row in reader:
+#     	data = get_genre_row_data(row)
+#     	populate_genre(data)
 

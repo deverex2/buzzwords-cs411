@@ -79,3 +79,10 @@ lyrics_table ='''
 				)
 			'''
 
+
+execute_query(artist_table)
+execute_query(song_table)
+execute_query(genre_table)
+execute_query(phrase_table)
+execute_query(vocabulary_table)
+execute_query(lyrics_table)
