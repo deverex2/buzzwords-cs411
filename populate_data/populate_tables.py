@@ -38,54 +38,27 @@ def get_populate_genre_query(s_id, genre):
 
 def get_populate_phrases_query(words):
 	populate_phrases = '''
-					begin tran
-					if exists (select * from Phrases where words = {0})
-					begin
-					   update Phrases 
-					   set count = count + 1
-					   where words = {0}
-					end
-					else
-					begin
-					   insert into Phrases
-					   values ({0}, 1)
-					end
-					commit tran
+					insert into Phrases
+					values ({0}, 1)
+					on duplicate key 
+					update count =count+1
 				'''.format(words)
 	return populate_phrases
 
 def get_populate_vocabulary_query(a_id, words):
 	query = '''
-					begin tran
-					if exists (select * from Vocabulary where a_id = {0} AND words = {1})
-					begin
-					   update Vocabulary 
-					   set v_freq = v_freq + 1
-					   where a_id = {0} AND words = {1}
-					end
-					else
-					begin
-					   insert into Vocabulary
-					   values ({0}, {1}, 1)
-					end
-					commit tran
+				insert into Vocabulary
+				values ({0}, {1}, 1)
+				on duplicate key 
+				update v_freq =v_freq+1
 				'''.format(a_id, words)
 	return query
 
 def get_populate_lyrics_query(s_id, words):
 	query = '''
-					begin tran
-					if exists (select * from Lyrics where a_id = {0} AND words = {1})
-					begin
-					   update Lyrics 
-					   set l_freq = l_freq + 1
-					   where a_id = {0} AND words = {1}
-					end
-					else
-					begin
-					   insert into Lyrics
-					   values ({0}, {1}, 1)
-					end
-					commit tran
-				'''.format(s_id, words)
+			insert into Lyrics
+			values ({0}, {1}, 1)
+			on duplicate key 
+			update l_freq =_freq+1
+			'''.format(s_id, words)
 	return query
