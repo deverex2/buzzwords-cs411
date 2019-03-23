@@ -36,12 +36,12 @@ def get_populate_genre_query(s_id, genre):
 		'''.format(s_id, genre)
 	return query
 
-def get_populate_phrases_query(words):
+def get_populate_phrase_query(words):
 	populate_phrases = '''
-					INSERT INTO Phrases(words, count)
+					INSERT INTO Phrase(words, count)
 					VALUES ({0}, 1)
 					ON DUPLICATE KEY 
-					UPDATE count = count + 1;
+					UPDATE count = count + 1
 				'''.format(words)
 	return populate_phrases
 
