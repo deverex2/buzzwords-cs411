@@ -38,10 +38,10 @@ def get_populate_genre_query(s_id, genre):
 
 def get_populate_phrases_query(words):
 	populate_phrases = '''
-					insert into Phrases
-					values ({0}, 1)
-					on duplicate key 
-					update count =count+1
+					INSERT INTO Phrases(words, count)
+					VALUES ({0}, 1)
+					ON DUPLICATE KEY 
+					UPDATE count = count+1
 				'''.format(words)
 	return populate_phrases
 
@@ -50,7 +50,7 @@ def get_populate_vocabulary_query(a_id, words):
 				insert into Vocabulary
 				values ({0}, {1}, 1)
 				on duplicate key 
-				update v_freq =v_freq+1
+				update v_freq = v_freq+1
 				'''.format(a_id, words)
 	return query
 
@@ -59,6 +59,6 @@ def get_populate_lyrics_query(s_id, words):
 			insert into Lyrics
 			values ({0}, {1}, 1)
 			on duplicate key 
-			update l_freq =_freq+1
+			update l_freq = l_freq+1
 			'''.format(s_id, words)
 	return query
