@@ -65,7 +65,7 @@ def populate_genre():
 	return True
 
 
-with open('./../songs.csv') as f:
+with open('./songs.csv') as f:
     reader = csv.reader(f)
     for row in reader:
     	data = get_song_row_data(row)
@@ -73,7 +73,7 @@ with open('./../songs.csv') as f:
 
 print "***Populated songs***"
 
-with open('./../song_genre.csv') as f:
+with open('./song_genre.csv') as f:
     reader = csv.reader(f)
     for row in reader:
     	data = get_genre_row_data(row)
