@@ -1,5 +1,5 @@
 import csv
-# import MySQLdb as mysql
+import MySQLdb as mysql
 import populate_tables as pt
 
 
