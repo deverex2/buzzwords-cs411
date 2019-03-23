@@ -10,11 +10,11 @@ Lyrics(s_id, words, l_freq)
 '''
 
 '''
-a_id → name, image_url
-s_id → title, genre, year, popularity_rating, a_id, full_lyrics
-words → count
-a_id, words → v_freq
-s_id, words → l_freq
+a_id - name, image_url
+s_id - title, genre, year, popularity_rating, a_id, full_lyrics
+words - count
+a_id, words - v_freq
+s_id, words - l_freq
 '''
 
 def execute_query(query):
