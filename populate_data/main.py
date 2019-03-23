@@ -46,7 +46,9 @@ def get_genre_row_data(row):
 
 def populate_song(data):
 	execute_query(pt.get_populate_artists_query(data['a_id'],data['artist_name']))
+	print "populated artist"
 	execute_query(pt.get_populate_songs_query(data['s_id'], data['title'], get_year(data['release_date']), data['billboard_rank'], data['a_id'], data['full_lyrics']))
+	print "populated song"
 	for gram in xrange(1,5):
 		populate_word_grams(gram, data)
 	return True
@@ -56,13 +58,17 @@ def populate_word_grams(gram, data):
 	for i in xrange(0,len(lyrics), gram):
 		words=' '.join(lyrics[i:i+gram]).lower()
 		execute_query(pt.get_populate_phrases_query(words))
+		print "populated phrase"
 		execute_query(pt.get_populate_vocabulary_query(data['a_id'], words))
+		print "populated vocab"
 		execute_query(pt.get_populate_lyrics_query(data['s_id'], words))
+		print "populated lyrics"
 	return True
 	
 
 def populate_genre():
 	execute_query(pt.get_populate_genre_query(data['s_id'], data['genre']))
+	print "populated genre"
 	return True
 
 
@@ -72,12 +78,12 @@ with open('./songs.csv') as f:
     	data = get_song_row_data(row)
     	populate_song(data)
 
-# print "***Populated songs***"
+print "***Populated songs***"
 
-# with open('./song_genre.csv') as f:
-#     reader = csv.reader(f)
-#     for row in reader:
-#     	data = get_genre_row_data(row)
-#     	populate_genre(data)
+with open('./song_genre.csv') as f:
+    reader = csv.reader(f)
+    for row in reader:
+    	data = get_genre_row_data(row)
+    	populate_genre(data)
 
-# print "***Populated song genres***"
+print "***Populated song genres***"
