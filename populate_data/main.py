@@ -80,7 +80,7 @@ with open('./songs.csv') as f:
     for row in reader:
     	data = get_song_row_data(row)
     	populate_song(data)
-    	print "populate song: ", data[title]
+    	print "populate song: ", data['title']
 
 print "***Populated songs***"
 
