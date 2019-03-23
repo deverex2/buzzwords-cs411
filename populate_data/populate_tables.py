@@ -41,7 +41,7 @@ def get_populate_phrases_query(words):
 					INSERT INTO Phrases(words, count)
 					VALUES ({0}, 1)
 					ON DUPLICATE KEY 
-					UPDATE count = VALUES(count)+1
+					UPDATE count = count + 1;
 				'''.format(words)
 	return populate_phrases
 
