@@ -27,8 +27,8 @@ def execute_query(query):
 artist_table = '''
                 CREATE TABLE Artists(
 					a_id int,
-					name varchar,
-					image_url varchar DEFAULT NULL,
+					name varchar(255),
+					image_url TEXT DEFAULT NULL,
 					PRIMARY KEY (a_id)
 				)
 				'''
@@ -36,11 +36,11 @@ artist_table = '''
 song_table = '''
                 CREATE TABLE Songs(
 					s_id int,
-					title varchar,
-					year varchar,
+					title varchar(255),
+					year varchar(255),
 					popularity_rating int,
 					a_id int,
-					full_lyrics varchar,
+					full_lyrics TEXT,
 					PRIMARY KEY (s_id)
 				)
 				'''
@@ -48,14 +48,14 @@ song_table = '''
 genre_table ='''
 				CREATE TABLE Genre(
 					s_id int,
-					genre varchar,
+					genre varchar(255),
 					PRIMARY KEY(s_id)
 				)
 			'''
 
 phrase_table ='''
 				CREATE TABLE Phrase(
-					words varchar,
+					words varchar(255),
 					count int,
 					PRIMARY KEY(words)
 				)
@@ -64,8 +64,8 @@ phrase_table ='''
 vocabulary_table ='''
 				CREATE TABLE Vocabulary(
 					a_id int,
-					words varchar,
-					v_freq varchar,
+					words varchar(255),
+					v_freq int,
 					PRIMARY KEY(a_id, words)
 				)
 			'''
@@ -74,7 +74,7 @@ lyrics_table ='''
 				CREATE TABLE Lyrics(
 					s_id int,
 					words varchar,
-					l_freq varchar,
+					l_freq int,
 					PRIMARY KEY(s_id, words)
 				)
 			'''
