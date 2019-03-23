@@ -31,7 +31,7 @@ def get_song_row_data(row):
 	print len(row)
 	return {
 		's_id':row[0],
-		'full_lyrics':row[1],
+		'full_lyrics':row[1].lower().replace("'",""),
 		'url':row[2],
 		'release_date':row[3],
 		'artist_name':row[4],
@@ -61,7 +61,7 @@ def populate_song(data):
 def populate_word_grams(gram, data):
 	lyrics = data['full_lyrics'].split()
 	for i in xrange(0,len(lyrics)):
-		words=' '.join(lyrics[i:i+gram]).lower()
+		words=' '.join(lyrics[i:i+gram])
 		execute_query(pt.get_populate_phrase_query(words))
 		print "populated phrase"
 		execute_query(pt.get_populate_vocabulary_query(data['a_id'], words))
