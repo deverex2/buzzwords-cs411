@@ -48,7 +48,7 @@ def get_populate_phrase_query(words):
 def get_populate_vocabulary_query(a_id, words):
 	query = '''
 				INSERT into Vocabulary
-				values ('{0}', '{1}', 1)
+				values ({0}, '{1}', 1)
 				on duplicate key 
 				update v_freq = v_freq+1
 				'''.format(a_id, words)
@@ -57,7 +57,7 @@ def get_populate_vocabulary_query(a_id, words):
 def get_populate_lyrics_query(s_id, words):
 	query = '''
 			INSERT into Lyrics
-			values ('{0}', '{1}', 1)
+			values ({0}, '{1}', 1)
 			on duplicate key 
 			update l_freq = l_freq+1
 			'''.format(s_id, words)
