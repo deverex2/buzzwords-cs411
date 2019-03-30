@@ -12,3 +12,4 @@ to update requirements after installing a package
 to install requirements on virtual environment
 	pip install -r requirements.txt
 
+nohup python main.py > my.log 2>&1 & echo $! > save_pid.txt
