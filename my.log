@@ -5,3 +5,14 @@ nohup: ignoring input
    Use a production WSGI server instead.
  * Debug mode: off
  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+10.194.119.25 - - [30/Mar/2019 16:49:05] "GET /search?gram=kanye&groupby=artist HTTP/1.1" 200 -
+10.194.119.25 - - [30/Mar/2019 16:49:51] "GET /search?gram=gucci&groupby=year HTTP/1.1" 200 -
+10.192.196.26 - - [30/Mar/2019 16:50:41] "GET /search?gram=gucci&groupby=year HTTP/1.1" 200 -
+10.194.119.25 - - [30/Mar/2019 16:51:09] "GET /search?gram=gucci&groupby=year HTTP/1.1" 200 -
+10.192.196.26 - - [30/Mar/2019 16:51:21] "GET /search?gram=gucci&groupby=year HTTP/1.1" 200 -
+10.192.196.26 - - [30/Mar/2019 16:52:00] "GET /search?gram=gucci&groupby=year HTTP/1.1" 200 -
+10.192.196.26 - - [30/Mar/2019 16:55:11] "GET /search?gram=gucci&groupby=year HTTP/1.1" 200 -
+10.192.196.26 - - [30/Mar/2019 16:56:32] "GET /search?gram=Gucci&groupby=year HTTP/1.1" 200 -
+10.192.196.26 - - [30/Mar/2019 16:56:46] "GET /search?gram=Gucci&groupby=year HTTP/1.1" 200 -
+10.192.196.26 - - [30/Mar/2019 16:56:47] "GET /search?gram=Gucci&groupby=year HTTP/1.1" 200 -
+10.192.196.26 - - [30/Mar/2019 16:56:52] "GET /search?gram=gucci&groupby=year HTTP/1.1" 200 -

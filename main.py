@@ -43,7 +43,7 @@ def search():
     if groupby=='year':
         cursor.execute("""SELECT year, SUM(l_freq) FROM ((SELECT * FROM Lyrics WHERE words = %s) S1 NATURAL JOIN (SELECT s_id, year FROM Songs) S2) GROUP BY year;""", (gram,))
     elif groupby=='artist':
-        cursor.execute("""SELECT * FROM Artists""")
+        cursor.execute("""SELECT name, SUM(l_freq) FROM(((SELECT * FROM Lyrics WHERE words = %s) S1 NATURAL JOIN (SELECT s_id, a_id FROM Songs) S2 ) NATURAL JOIN (SELECT a_id, name FROM Artists) S3) GROUP BY name ;""", (gram,))
     elif groupby=='genre':
         cursor.execute("""SELECT * FROM Genres""")
     else:
