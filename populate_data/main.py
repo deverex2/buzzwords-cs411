@@ -53,11 +53,12 @@ def populate_song(data):
 	# print "populated artist"
 	execute_query(pt.get_populate_songs_query(data['s_id'], data['title'], get_year(data['release_date']), data['billboard_rank'], data['a_id'], data['full_lyrics']))
 	# print "populated song"
-	for gram in xrange(1,5):
+	for gram in xrange(2,5):
 		populate_word_grams(gram, data)
 	return True
 
 def populate_word_grams(gram, data):
+	print "Populating gram: ", str(gram)
 	lyrics = data['full_lyrics'].split()
 	for i in xrange(0,len(lyrics)):
 		words=' '.join(lyrics[i:i+gram])
