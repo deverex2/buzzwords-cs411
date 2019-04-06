@@ -45,9 +45,20 @@ def search():
     elif groupby=='artist':
         cursor.execute("""SELECT name, SUM(l_freq) FROM(((SELECT * FROM Lyrics WHERE words = %s) S1 NATURAL JOIN (SELECT s_id, a_id FROM Songs) S2 ) NATURAL JOIN (SELECT a_id, name FROM Artists) S3) GROUP BY name ;""", (gram,))
     elif groupby=='genre':
-        cursor.execute("""SELECT * FROM Genres""")
+        cursor.execute("""SELECT genre, SUM(l_freq) FROM (((SELECT * FROM Lyrics WHERE words = %s) S1 NATURAL JOIN (SELECT * FROM Genre) S2 )) GROUP BY genre ;""", (gram,))
     else:
         return "-1"
+    data = cursor.fetchall()
+    data = {"items": [[x[0],int(x[1])] for x in data]}
+    resp = Response(str(data))
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
+
+@app.route('/testn')
+def testn():
+    db = MySQLdb.connect(host="localhost",user="root", passwd="",db="Project")
+    cursor = db.cursor()
+    cursor.execute("""SELECT * FROM Lyrics""")
     data = cursor.fetchall()
     resp = Response(str(data))
     resp.headers['Access-Control-Allow-Origin'] = '*'
