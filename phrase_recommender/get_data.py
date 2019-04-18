@@ -18,10 +18,10 @@ def get_lyrics_query(genre, year):
 	return 	'''
 			SELECT full_lyrics, year 
 			FROM genre_lyrics_view 
-			WHERE genre={0} and year={1}
+			WHERE genre='{0}' and year='{1}'
 			'''.format(genre, year)
 
 
 if __name__ == '__main__':
-	
+
 	get_lyrics(get_lyrics_query('Pop','2006'))
