@@ -11,8 +11,8 @@ def get_lyrics(genre, year):
 		all_lyrics = []
 		for row in cursor.fetchall():
 			all_lyrics.append(row[0])
-		return '    '.join(all_lyrics)
 		db.close()
+		return '    '.join(all_lyrics)
 	except Exception as e:
 		print "Error: ", e
 	
