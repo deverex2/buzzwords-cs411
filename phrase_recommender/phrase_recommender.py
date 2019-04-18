@@ -224,6 +224,6 @@ if __name__ == '__main__':
     # print get_phrase_recommendation_test(txt,'Pop', '2006')
 
     for yr in xrange(2006,2018):
-        print "Pop ", str(year)
-        print get_phrase_recommendation('Pop', year)
+        print "Pop ", str(yr)
+        print get_phrase_recommendation('Pop', yr)
     
