@@ -7,8 +7,10 @@ def get_lyrics(query):
 		db = mysql.connect(host="localhost",user="root",passwd="", db="Project")
 		cursor = db.cursor()
 		cursor.execute(query)
+		all_lyrics = []
 		for row in cursor.fetchall():
-			print row
+			all_lyrics.append(row[0])
+		return '    '.join(all_lyrics)
 		db.close()
 	except Exception as e:
 		print "Error: ", e
@@ -16,7 +18,7 @@ def get_lyrics(query):
 
 def get_lyrics_query(genre, year):
 	return 	'''
-			SELECT full_lyrics, year 
+			SELECT full_lyrics 
 			FROM genre_lyrics_view 
 			WHERE genre='{0}' and year='{1}'
 			'''.format(genre, year)
@@ -24,4 +26,4 @@ def get_lyrics_query(genre, year):
 
 if __name__ == '__main__':
 
-	get_lyrics(get_lyrics_query('Pop','2006'))
+	print get_lyrics(get_lyrics_query('Pop','2006'))
