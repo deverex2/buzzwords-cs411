@@ -26,6 +26,11 @@ import spacy
 # NLTK Stop words
 from nltk.corpus import stopwords
 
+import pandas as pd
+from collections import defaultdict
+
+import get_data
+
 # genres,lyrics,artist,url,release_date,title,billboard_rank,artist_id,id
 
 # ref: https://www.machinelearningplus.com/nlp/topic-modeling-gensim-python/
@@ -182,24 +187,43 @@ def get_gram_text(data, gram):
         ret.append('_'.join(chunk))
     return ' '.join(ret)
 
+def get_phrase_recommendation_test(text, year, genre):
+    topics = get_topics(txt,3,10,20)
+    for gram in xrange(2,4):
+        topics.extend(get_topics_gram(txt,2,5,10,gram))
+    return topics
+
+def get_phrase_recommendation(year, genre):
+    text = get_data.get_lyrics(str(genre), str(year))
+    topics = get_topics(text,3,10,20)
+    for gram in xrange(2,4):
+        topics.extend(get_topics_gram(text,2,5,10,gram))
+    return topics
+
+
+
 
 if __name__ == '__main__':
-    import pandas as pd
-    from collections import defaultdict
+    # data = pd.read_csv('./data.csv', usecols=['genre', 'lyrics', 'release_date'])
 
-    data = pd.read_csv('./data.csv', usecols=['genre', 'lyrics', 'release_date'])
+    # # song_dict[genre][year] will return all lyrics for that genre in that year
+    # song_dict = defaultdict(lambda: defaultdict(str))
 
-    # song_dict[genre][year] will return all lyrics for that genre in that year
-    song_dict = defaultdict(lambda: defaultdict(str))
+    # for _, row in data.iterrows():
+    #     year = row['release_date'].split('-')[0]
+    #     song_dict[row['genre']][year] += "    "+row['lyrics'].encode('utf-8')
 
-    for _, row in data.iterrows():
-        year = row['release_date'].split('-')[0]
-        song_dict[row['genre']][year] += "    "+row['lyrics'].encode('utf-8')
+    # # get_topics(song_dict['Pop']['2005'],3,10)
 
-    # get_topics(song_dict['Pop']['2005'],3,10)
+    # txt = song_dict['Pop']['2006']
 
-    txt = song_dict['Pop']['2006']
+    # # print get_topics(txt,3,10,20)
+    # # print "---------------"
+    # # print get_topics_gram(txt,3,3,5,3)
 
-    print get_topics(txt,3,10,20)
-    print "---------------"
-    print get_topics_gram(txt,3,3,5,3)
+    # print get_phrase_recommendation_test(txt,'Pop', '2006')
+
+    for yr in xrange(2006,2018):
+        print "Pop ", str(year)
+        print get_phrase_recommendation('Pop', year)
+    
