@@ -2,7 +2,8 @@ import MySQLdb as mysql
 
 
 
-def get_lyrics(query):
+def get_lyrics(genre, year):
+	query = _get_lyrics_query(genre, year)
 	try:
 		db = mysql.connect(host="localhost",user="root",passwd="", db="Project")
 		cursor = db.cursor()
@@ -16,7 +17,7 @@ def get_lyrics(query):
 		print "Error: ", e
 	
 
-def get_lyrics_query(genre, year):
+def _get_lyrics_query(genre, year):
 	return 	'''
 			SELECT full_lyrics 
 			FROM genre_lyrics_view 
@@ -26,4 +27,4 @@ def get_lyrics_query(genre, year):
 
 if __name__ == '__main__':
 
-	print get_lyrics(get_lyrics_query('Pop','2006'))
+	print get_lyrics('Pop','2006')
