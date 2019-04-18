@@ -7,7 +7,7 @@ def get_lyrics(query):
 		db = mysql.connect(host="localhost",user="root",passwd="", db="Project")
 		cursor = db.cursor()
 		cursor.execute(query)
-		for row in curson.fetchall():
+		for row in cursor.fetchall():
 			print row
 		db.close()
 	except Exception as e:
