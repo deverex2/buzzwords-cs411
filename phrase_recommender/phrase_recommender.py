@@ -194,11 +194,15 @@ def get_phrase_recommendation_test(text, year, genre):
     return topics
 
 def get_phrase_recommendation(genre, year):
-    text = get_data.get_lyrics(str(genre), str(year))
-    topics = get_topics(text,3,10,20)
-    for gram in xrange(2,4):
-        topics.extend(get_topics_gram(text,2,5,10,gram))
-    return topics
+    try:
+        text = get_data.get_lyrics(str(genre), str(year))
+        topics = get_topics(text,3,10,20)
+        for gram in xrange(2,4):
+            topics.extend(get_topics_gram(text,2,5,10,gram))
+        return topics
+    except Exception as e:
+        return []
+    
 
 
 
