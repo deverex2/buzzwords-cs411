@@ -195,6 +195,8 @@ def get_phrase_recommendation_test(text, year, genre):
 
 def get_phrase_recommendation(year, genre):
     text = get_data.get_lyrics(str(genre), str(year))
+    print "text: "
+    print text
     topics = get_topics(text,3,10,20)
     for gram in xrange(2,4):
         topics.extend(get_topics_gram(text,2,5,10,gram))
