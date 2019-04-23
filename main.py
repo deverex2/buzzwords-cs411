@@ -1,16 +1,19 @@
 from flask import Flask
 from flask import request
 from flask import Response
+from flask import redirect
+import json
 import MySQLdb
 
 app = Flask(__name__)
 @app.route('/')
 def main():
-    db = MySQLdb.connect(host="localhost",user="root", passwd="",db="Project")
-    cursor = db.cursor()
-    cursor.execute("""SHOW TABLES""")
-    data = cursor.fetchall()
-    return str(data)
+    # db = MySQLdb.connect(host="localhost",user="root", passwd="",db="Project")
+    # cursor = db.cursor()
+    # cursor.execute("""SHOW TABLES""")
+    # data = cursor.fetchall()
+    # return str(data)
+    return redirect("https://kys2.gitlab.io/cs411_final/#/", code=302)
 
 @app.route('/artist')
 def artist():
@@ -50,7 +53,8 @@ def search():
         return "-1"
     data = cursor.fetchall()
     data = {"items": [[x[0],int(x[1])] for x in data]}
-    resp = Response(str(data))
+    print(data)
+    resp = Response(json.dumps(data), mimetype='application/json')
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp
 
@@ -66,4 +70,4 @@ def testn():
  
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', ssl_context='adhoc')
