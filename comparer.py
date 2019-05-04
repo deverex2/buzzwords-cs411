@@ -92,21 +92,11 @@ def printArtistLyricsToCompare(artists, artistLyricsToCompare):
 			print key + ':', value
 		print '\n'	
 
-def main():
-	firstArtist = 'Lil Pump'
-	secondArtist = 'Juelz Santana'
-	artists = [firstArtist, secondArtist]
-	artistLyricsToCompare = getLyrics(artists)
+def compareArtists(firstArtist, secondArtist):
+        artistLyricsToCompare = getLyrics([firstArtist, secondArtist])
+        firstArtistLyrics = artistLyricsToCompare[0]
+        firstArtistStats = getStats(firstArtist, firstArtistLyrics)
+        secondArtistLyrics = artistLyricsToCompare[1]
+        secondArtistStats = getStats(secondArtist, secondArtistLyrics)
+	return {firstArtist: firstArtistStats, secondArtist: secondArtistStats}
 
-	firstArtistLyrics = artistLyricsToCompare[0]
-	firstArtistStats = getStats(firstArtist, firstArtistLyrics)
-	secondArtistLyrics = artistLyricsToCompare[1]
-	secondArtistStats = getStats(secondArtist, secondArtistLyrics)
-
-	print(firstArtistStats)
-	print()
-	print(secondArtistStats)
-#	printArtistLyricsToCompare(artists, artistLyricsToCompare)
-
-if __name__ == '__main__':
-	main()	
