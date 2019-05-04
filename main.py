@@ -73,7 +73,25 @@ def remove_genre():
     genre = request.args.get('genre')
     db = MySQLdb.connect(host="localhost",user="root", passwd="",db="Project")
     cursor = db.cursor()
-    cursor.execute("""DELETE FROM Genre WHERE genre=%s""",(genre,))
+    cursor.execute("""CALL delete_genre(%s)""",(genre,))
+    cursor.execute("""SELECT DISTINCT genre FROM Genre""")
+    data = cursor.fetchall()
+    db.commit()
+    data = {"genres": [x[0] for x in data]}
+    resp = Response(json.dumps(data), mimetype='application/json')
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
+
+@app.route('/update_genre')
+def update_genre():
+    old = request.args.get('old')
+    new = request.args.get('new')
+    db = MySQLdb.connect(host="localhost",user="root", passwd="",db="Project")
+    cursor = db.cursor()
+    cursor.execute("""PREPARE updategenrestatement FROM 'UPDATE Genre SET genre = ? WHERE genre = ?'""")
+    cursor.execute("""SET @a = %s""" (old,))
+    cursor.execute("""SET @b = %s""" (new,))
+    cursor.execute("""EXECUTE updategenrestatement USING @a, @b""")
     cursor.execute("""SELECT DISTINCT genre FROM Genre""")
     data = cursor.fetchall()
     db.commit()
