@@ -12,4 +12,6 @@ MATTR. Moving Average Type-Token Ratio. This statistic provides a TTR statistic 
 
 HD-D. Hypergeometric Distribution Diversity. This index does not sequentially segment the text like MSTTR and MTLD, but instead draws samples by selecting words at random from all over the text. The length of each segment is set at 42. HD-D is computed as the average TTR of all of these segments and uses a hypergeometric probability distribution for this calculation.  
 
-Q. Text Activity. Text activity is represented by verbs and text descriptiveness by adjectives. This index is computed as the ratio of verbs V and the sum of verbs V and adjectives A in the text, Q = (V / (V+A))  
+Q. Text Activity. Text activity is represented by verbs and text descriptiveness by adjectives. This index is computed as the ratio of verbs V and the sum of verbs V and adjectives A in the text, Q = (V / (V+A)) 
+
+Polarity. The polarity score represents whether the expressed opinion of a document, sentence, or word is positive, negative, or neutral. The polarity score lies within the range [-1.0, 1.0] with -1.0 representing a completely negative sentiment, 1.0 representing a completely positive sentiment, and 0.0 being neutral. 
