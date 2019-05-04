@@ -2,40 +2,14 @@ from flask import Flask
 from flask import request
 from flask import Response
 from flask import redirect
+from phrase_recommender.phrase_recommender import get_phrase_recommendation
 import json
 import MySQLdb
 
 app = Flask(__name__)
 @app.route('/')
 def main():
-    # db = MySQLdb.connect(host="localhost",user="root", passwd="",db="Project")
-    # cursor = db.cursor()
-    # cursor.execute("""SHOW TABLES""")
-    # data = cursor.fetchall()
-    # return str(data)
     return redirect("https://kys2.gitlab.io/cs411_final/#/", code=302)
-
-@app.route('/artist')
-def artist():
-    name = request.args.get('name')
-    db = MySQLdb.connect(host="localhost",user="root", passwd="",db="Project")
-    cursor = db.cursor()
-    cursor.execute("""SELECT * FROM Artists WHERE name=%s""", (name,))
-    data = cursor.fetchall()
-    resp = Response(str(data))
-    resp.headers['Access-Control-Allow-Origin'] = '*'
-    return resp
-    
-@app.route('/song')
-def song():
-    title = request.args.get('title')
-    db = MySQLdb.connect(host="localhost",user="root", passwd="",db="Project")
-    cursor = db.cursor()
-    cursor.execute("""SELECT * FROM Songs WHERE title=%s""", (title,))
-    data = cursor.fetchall()
-    resp = Response(str(data))
-    resp.headers['Access-Control-Allow-Origin'] = '*'
-    return resp
 
 @app.route('/search')
 def search():
@@ -53,21 +27,46 @@ def search():
         return "-1"
     data = cursor.fetchall()
     data = {"items": [[x[0],int(x[1])] for x in data]}
-    print(data)
     resp = Response(json.dumps(data), mimetype='application/json')
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp
 
-@app.route('/testn')
-def testn():
-    db = MySQLdb.connect(host="localhost",user="root", passwd="",db="Project")
-    cursor = db.cursor()
-    cursor.execute("""SELECT * FROM Lyrics""")
-    data = cursor.fetchall()
-    resp = Response(str(data))
+@app.route('/phrase_recommend')
+def phrase_recommend():
+    genre = request.args.get('genre')
+    year = request.args.get('year')
+    data = get_phrase_recommendation(str(genre), str(year))
+    data = set([x.replace('\"', '').replace('_', ' ') for x in data])
+    if " " in data:
+        data.remove(" ")
+    if "" in data:
+        data.remove("")
+    data = {"phrases": list(data)}
+    resp = Response(json.dumps(data), mimetype='application/json')
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp
- 
+
+@app.route('/genres')
+def genres():
+    db = MySQLdb.connect(host="localhost",user="root", passwd="",db="Project")
+    cursor = db.cursor()
+    cursor.execute("""SELECT DISTINCT genre FROM Genre""")
+    data = cursor.fetchall()
+    data = {"genres": [x[0] for x in data]}
+    resp = Response(json.dumps(data), mimetype='application/json')
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
+
+@app.route('/years')
+def years():
+    db = MySQLdb.connect(host="localhost",user="root", passwd="",db="Project")
+    cursor = db.cursor()
+    cursor.execute("""SELECT DISTINCT year FROM Songs""")
+    data = cursor.fetchall()
+    data = {"years": [x[0] for x in data]}
+    resp = Response(json.dumps(data), mimetype='application/json')
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', ssl_context='adhoc')

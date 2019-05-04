@@ -201,6 +201,7 @@ def get_phrase_recommendation(genre, year):
             topics.extend(get_topics_gram(text,2,5,10,gram))
         return topics
     except Exception as e:
+        print(e)
         return []
     
 
