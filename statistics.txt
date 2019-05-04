@@ -1,0 +1,15 @@
+TTR: Type-Token Ratio. TTR is used as a simple measure of lexical richness. This statistic shows the relationship between the set of unique words in a text (types) and the set of all words in a text (tokens). Let t represent the number of types and n represent the total number of tokens in a text. TTR is the ratio of types to tokens, TTR = (t / n).
+
+RTTR: Root Type-Token Ratio. TTR by itself is not independent of text length. That is, longer texts always have a lower TTR. RTTR is an attempt at correcting TTR by readjusting the formula for TTR, RTTR = (t / sqrt(n)). 
+
+CTTR: Corrected Type-Token Ratio. This is another attempt at correcting the TTR statistic that draws inspiration from RTTR. CTTR = (t / sqrt(2n)). 
+
+MSTTR: Mean Segmental Type-Token Ratio. TTR and its corrections, RTTR and CTTR, were still not completely independent of text length. A more complex calculation was introduced: segment the text, normally 100 words per segment, and calculate the TTR on each segment. Average the TTRs to produce MSTTR.
+
+MTLD. Measure of Textual Lexical Diversity. The mean length of sequential word strings in a text that maintain a given TTR value. Each word in a text is evaluated sequentially for its TTR, and when the default TTR factor size (0.72) is reached, the factor count increases by one and the TTR evaluations are reset.
+
+MATTR. Moving Average Type-Token Ratio. This statistic provides a TTR statistic independent of text length and draws inspiration from MSTTR. Instead of segmenting the text into sequential segments, only one segment is created, called a "window". The window slides across the text. As the window slides, one token enters the window and one token exists the window at a time. The TTR is computed for every window. MATTR provides a higher-resolution view of changes within a text than MSTTR. MATTR is a fast hashtable-based algorithm.   
+
+HD-D. Hypergeometric Distribution Diversity. This index does not sequentially segment the text like MSTTR and MTLD, but instead draws samples by selecting words at random from all over the text. The length of each segment is set at 42. HD-D is computed as the average TTR of all of these segments and uses a hypergeometric probability distribution for this calculation.  
+
+Q. Text Activity. Text activity is represented by verbs and text descriptiveness by adjectives. This index is computed as the ratio of verbs V and the sum of verbs V and adjectives A in the text, Q = (V / (V+A))  
