@@ -3,8 +3,10 @@ from flask import request
 from flask import Response
 from flask import redirect
 from phrase_recommender.phrase_recommender import get_phrase_recommendation
+from comparer import compareArtists
 import json
 import MySQLdb
+
 
 app = Flask(__name__)
 @app.route('/')
@@ -46,12 +48,73 @@ def phrase_recommend():
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp
 
+@app.route('/artist_similarity')
+def artist_similarity():
+    a1 = request.args.get('artist1')
+    a2 = request.args.get('artist2')
+    data = compareArtists(a1, a2)
+    resp = Response(json.dumps(data), mimetype='application/json')
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
+
 @app.route('/genres')
 def genres():
     db = MySQLdb.connect(host="localhost",user="root", passwd="",db="Project")
     cursor = db.cursor()
     cursor.execute("""SELECT DISTINCT genre FROM Genre""")
     data = cursor.fetchall()
+    data = {"genres": [x[0] for x in data]}
+    resp = Response(json.dumps(data), mimetype='application/json')
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
+
+@app.route('/remove_genre')
+def remove_genre():
+    genre = request.args.get('genre')
+    db = MySQLdb.connect(host="localhost",user="root", passwd="",db="Project")
+    cursor = db.cursor()
+    cursor.execute("""CALL delete_genre(%s)""",(genre,))
+    cursor.execute("""SELECT DISTINCT genre FROM Genre""")
+    data = cursor.fetchall()
+    db.commit()
+    data = {"genres": [x[0] for x in data]}
+    resp = Response(json.dumps(data), mimetype='application/json')
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
+
+@app.route('/update_genre')
+def update_genre():
+    old = request.args.get('old')
+    new = request.args.get('new')
+    db = MySQLdb.connect(host="localhost",user="root", passwd="",db="Project")
+    cursor = db.cursor()
+    cursor.execute("""PREPARE updategenrestatement FROM 'UPDATE Genre SET genre = ? WHERE genre = ?'""")
+    cursor.execute("""SET @a = %s""", (new,))
+    cursor.execute("""SET @b = %s""", (old,))
+    cursor.execute("""EXECUTE updategenrestatement USING @a, @b""")
+    cursor.execute("""SELECT DISTINCT genre FROM Genre""")
+    data = cursor.fetchall()
+    db.commit()
+    data = {"genres": [x[0] for x in data]}
+    resp = Response(json.dumps(data), mimetype='application/json')
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
+
+@app.route('/add_genre')
+def add_genre():
+    genre = request.args.get('genre')
+    song = request.args.get('song')
+    db = MySQLdb.connect(host="localhost",user="root", passwd="",db="Project")
+    cursor = db.cursor()
+    cursor.execute("""SELECT s_id FROM Songs WHERE title=%s""",(song,))
+    sid = cursor.fetchall()
+    sid = [x[0] for x in sid]
+    if len(sid)==1:
+        sid = sid[0]
+        cursor.execute("""INSERT INTO Genre(s_id, genre) VALUES (%s, %s)""", (sid, genre,))
+    cursor.execute("""SELECT DISTINCT genre FROM Genre""")
+    data = cursor.fetchall()
+    db.commit()
     data = {"genres": [x[0] for x in data]}
     resp = Response(json.dumps(data), mimetype='application/json')
     resp.headers['Access-Control-Allow-Origin'] = '*'
